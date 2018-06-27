@@ -22,10 +22,10 @@ public class balloon : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		baloon = GameObject.Find("baloon");
+		baloon = GameObject.Find("baloon"); // this.gameObject
 		Stamina = MaxStamina;
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		ElapsedTimeStamina += Time.deltaTime;
