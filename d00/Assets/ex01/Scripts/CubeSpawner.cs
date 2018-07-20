@@ -44,6 +44,6 @@ public class CubeSpawner : MonoBehaviour {
 		while (random_asd == asd_prev)
 				random_asd = Random.Range(0, 3);
 		asd_prev = random_asd;
-		Debug.Log(random_asd);
+		//Debug.Log(random_asd); print nbr random
 	}
 }
