@@ -201,7 +201,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   force_distance: 0
   move_ball: 0
+  hit: 0
   ball_up_hole: 0
+  score: -15
 --- !u!1 &310573080
 GameObject:
   m_ObjectHideFlags: 0
