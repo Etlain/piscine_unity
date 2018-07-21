@@ -65,6 +65,8 @@ public class Ball : MonoBehaviour {
 					ball_speed = 0;
 					if (club.score <= 0)
 						Debug.Log("Victory :)");
+					else
+						Debug.Log("Defeat :(");
 					club.score-=5;
 					game = false;
 				}
@@ -78,14 +80,9 @@ public class Ball : MonoBehaviour {
 					direction_up = true;
 				}
 			}
-			if (!start_speed_ball)
+			if (!start_speed_ball && game)
 			{
 				club.score+=5;
-				if (club.score > 0 && game)
-				{
-					Debug.Log("Defeat :(");
-					game = false;
-				}
 				Debug.Log("Score : "+club.score);
 				start_speed_ball = true;
 			}
@@ -96,7 +93,8 @@ public class Ball : MonoBehaviour {
 				club.force_distance = 0;
 				club.move_ball = false;
 				start_speed_ball = false;
-				// placer le club correctement
+				if (game)
+					club.transform.localPosition = new Vector3(club.transform.localPosition.x, ball.transform.localPosition.y, -1);
 			}
 			if (ball.transform.localPosition.y > hole.transform.localPosition.y)
 				club.ball_up_hole = true;
