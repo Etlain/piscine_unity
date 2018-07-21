@@ -41,6 +41,8 @@ public class Club : MonoBehaviour {
 					this.gameObject.transform.Translate(Vector3.up * (-force_distance));
 				else
 					this.gameObject.transform.Translate(Vector3.down * (-force_distance));
+				if (force_distance > 10 || force_distance < -10)
+					force_distance = 5;
 				hit = false;
 				move_ball = true;
 			}
