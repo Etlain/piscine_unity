@@ -70,8 +70,6 @@ public class Ball : MonoBehaviour {
 					club.score-=5;
 					game = false;
 				}
-				/*else if (ball_speed < 15.0f && ball.transform.localPosition.y < hole.transform.localPosition.y + 0.5 && ball.transform.localPosition.y > hole.transform.localPosition.y - 0.5)
-					ball_speed = 0;*/
 				else if (down_border.transform.localPosition.y < ball.transform.localPosition.y - ball_distance)
 					ball.transform.Translate(Vector3.down * ball_distance);
 				else
@@ -89,7 +87,6 @@ public class Ball : MonoBehaviour {
 			ball_speed = ball_speed - 1.0f;
 			if (ball_speed < 0)
 			{
-				//print("finish");
 				club.force_distance = 0;
 				club.move_ball = false;
 				start_speed_ball = false;
