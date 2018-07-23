@@ -122,8 +122,9 @@ GameObject:
   m_Component:
   - component: {fileID: 163324314}
   - component: {fileID: 163324313}
+  - component: {fileID: 163324315}
   m_Layer: 0
-  m_Name: player1
+  m_Name: player2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -185,8 +186,22 @@ Transform:
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &163324315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 163324312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 756858f8981cc43ab9c98c3f54c4e536, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key_up: up
+  key_down: down
+  score: 0
 --- !u!1 &758178599
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,8 +211,9 @@ GameObject:
   m_Component:
   - component: {fileID: 758178601}
   - component: {fileID: 758178600}
+  - component: {fileID: 758178602}
   m_Layer: 0
-  m_Name: cube
+  m_Name: ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -261,6 +277,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &758178602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 758178599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65c1db77a47a04084ad83eaca6292037, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player1: {fileID: 1486098462}
+  player2: {fileID: 163324315}
+  speed: 6
 --- !u!1 &1252224779
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,8 +381,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1486098461}
   - component: {fileID: 1486098460}
+  - component: {fileID: 1486098462}
   m_Layer: 0
-  m_Name: player2
+  m_Name: player1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -414,5 +445,19 @@ Transform:
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1486098462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1486098459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 756858f8981cc43ab9c98c3f54c4e536, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key_up: w
+  key_down: s
+  score: 0
