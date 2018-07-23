@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Pipe : MonoBehaviour {
 
-	public GameObject bird;
+	public Bird bird;
 
 	[HideInInspector]
 	private GameObject pipe;
@@ -17,29 +17,17 @@ public class Pipe : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		// mouvement pipe
-		/*pipe.transform.Translate(Vector3.left * Time.deltaTime); // -7, 7
-		//print("camera :"+Camera.main.rect.x);
-		//print("pipe pos: "+pipe.transform.position.x);
+		pipe.transform.Translate(Vector3.left * Time.deltaTime); // -7, 7
 		if (pipe.transform.position.x <= -7)
 			pipe.transform.Translate(Vector3.right * 14);
 		else if (bird.transform.position.x <= pipe.transform.position.x + 1 && bird.transform.position.x >= pipe.transform.position.x - 1)
 		{
-			if (bird.transform.position.y <= pipe.transform.position.y + 0.5 && bird.transform.position.y >= pipe.transform.position.y - 0.5)
+			if (bird.transform.position.y > pipe.transform.position.y + 1 || bird.transform.position.y < pipe.transform.position.y - 1)
 			{
-				print("bird in pipe");
+				bird.transform.Translate(Vector3.down * (bird.transform.position.y - bird.ground.transform.position.y));
+				bird.dead();
 			}
-			//print("bird with pipe");
 		}
-		else
-			print("finish");*/
-		//	print("i m visible");
-		//if (pipe.transform.localPosition.x < )
-		// gestion collision avec l'oiseau
 	}
-
-	void OnBecameInvisible()
-    {
-        //enabled = false;
-    }
 
 }
