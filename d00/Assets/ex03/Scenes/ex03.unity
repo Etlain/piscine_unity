@@ -273,6 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1e55ddf2f3214a8aaa49b8a739dc717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ground: {fileID: 21513863}
 --- !u!1 &293200741
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,7 +360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 860a2a0ee6f7e48ebafa196cac2e7a17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bird: {fileID: 263576760}
+  bird: {fileID: 263576763}
 --- !u!1 &435910407
 GameObject:
   m_ObjectHideFlags: 0
@@ -446,7 +447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 860a2a0ee6f7e48ebafa196cac2e7a17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bird: {fileID: 263576760}
+  bird: {fileID: 263576763}
 --- !u!1 &1367958752
 GameObject:
   m_ObjectHideFlags: 0
