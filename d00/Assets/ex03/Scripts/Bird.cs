@@ -11,7 +11,8 @@ public class Bird : MonoBehaviour {
 	private float		old_Y;
 	private float		old_time = 0;
 	private Vector3 	tmp;
-	private bool		alive;
+	public bool			alive;
+	public int 			score = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -23,12 +24,13 @@ public class Bird : MonoBehaviour {
 
 	public void dead()
 	{
+		Debug.Log("Score: "+score);
+		Debug.Log("Time: "+Mathf.RoundToInt(Time.time)+"s");
 		alive = false;
 	}
 
 	// Update is called once per frame
 	void Update () {
-		// gestion mouvement bird space sur l axe Y
 		if (alive)
 		{
 			if (Input.GetKeyDown("space")){
@@ -37,15 +39,9 @@ public class Bird : MonoBehaviour {
 			float y;
 			float t = 4 * (Time.fixedTime - old_time);
 			y = -4f * t + 8f;
-			//bird.transform.Rotate(Vector3.forward * Time.deltaTime /** 10 * y*//*);
-			//print("y : "+y+" time : "+t);
 			bird.transform.Translate(Vector3.up * y * Time.deltaTime);
-			//bird.transform.Rotate(0f,0f,60f * Time.deltaTime, Space.Self);
-			//print("space : "+Space.World);
 			if (ground.transform.position.y - 0.3 <= bird.transform.position.y && ground.transform.position.y + 0.3 >= bird.transform.position.y)
-			{
 				bird.dead();
-			}
 		}
 		//bird.transform.Rotate(0f,0f,y, Space.Self);
 	}
