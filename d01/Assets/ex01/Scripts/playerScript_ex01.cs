@@ -10,21 +10,40 @@ public class playerScript_ex01 : MonoBehaviour {
 	public int		jump = 10;
 
 	[HideInInspector]
-	private playerScript_ex01 player;
+	private GameObject		  player;
+
 	private bool 			  b_jump = false;
+	private bool			  b_camera = true;
+
 	private static int 		  selected_player = 0;
 	private int 			  id_player = 1;
-	private bool			  b_camera = true;
-	//private static int 		  selected_player2 = 1;
 
+	private const int		  numberCharacter = 3;
+	private static bool[]	  tab_finished = new bool[numberCharacter];
+
+	void initTabFinished()
+	{
+		int i;
+
+		i = 0;
+		while (i < numberCharacter)
+		{
+			tab_finished[i] = false;
+			i++;
+		}
+	}
 
 	// Use this for initialization
 	void Start () {
-		player = this;
+		player = this.gameObject;
+		if (selected_player == 0)
+			initTabFinished();
 		//print(selected_player2);
-		selected_player++;
-		id_player = selected_player;
 
+		id_player = selected_player;
+		selected_player++;
+		if (selected_player == numberCharacter)
+			selected_player = 0;
 	}
 
 	// Update is called once per frame
@@ -55,28 +74,73 @@ public class playerScript_ex01 : MonoBehaviour {
 			selected_player = 0;
 			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 		}
-		else if (Input.GetKey("a"))
+		else if (Input.GetKey("1") || Input.GetKey("a"))
+		{
+			selected_player = 0;
+			b_camera = true;
+		}
+		else if (Input.GetKey("2") || Input.GetKey("z"))
 		{
 			selected_player = 1;
 			b_camera = true;
 		}
-		else if (Input.GetKey("z"))
+		else if (Input.GetKey("3") || Input.GetKey("e"))
 		{
 			selected_player = 2;
 			b_camera = true;
 		}
-		else if (Input.GetKey("e"))
+		if (IsVictory())
 		{
-			selected_player = 3;
-			b_camera = true;
+			Debug.Log("Victory");
 		}
 	}
 
+
 	void OnCollisionEnter2D(Collision2D collision)
 	{
+		/*print(collision.gameObject.tag);
+		print(this.tag);*/
 		if (collision.gameObject.tag == "Ground")
 			b_jump = false;
-		else if (collision.gameObject.tag == "Player")
+		else if (collision.gameObject.tag == "Claire" || collision.gameObject.tag == "Thomas" || collision.gameObject.tag == "John")
 			b_jump = false;
+	}
+
+	void OnTriggerEnter2D(Collider2D collider)
+	{
+		/*print(collider.gameObject.tag);
+		print(this.tag);*/
+		if (collider.gameObject.tag == "ThomasFinish" && this.tag == "Thomas")
+			tab_finished[selected_player] = true;
+		else if (collider.gameObject.tag == "JohnFinish" && this.tag == "John")
+			tab_finished[selected_player] = true;
+		else if (collider.gameObject.tag == "ClaireFinish" && this.tag == "Claire")
+			tab_finished[selected_player] = true;
+	}
+
+	void OnTriggerExit2D(Collider2D collider)
+	{
+		/*print(collider.gameObject.tag);
+		print(this.tag);*/
+		if (collider.gameObject.tag == "ThomasFinish" && this.tag == "Thomas")
+			tab_finished[selected_player] = false;
+		if (collider.gameObject.tag == "JohnFinish" && this.tag == "John")
+			tab_finished[selected_player] = false;
+		if (collider.gameObject.tag == "ClaireFinish" && this.tag == "Claire")
+			tab_finished[selected_player] = false;
+	}
+
+	bool IsVictory()
+	{
+		int i;
+
+		i = 0;
+		while (i < numberCharacter)
+		{
+			if (tab_finished[i] == false)
+				return (false);
+			i++;
+		}
+		return true;
 	}
 }

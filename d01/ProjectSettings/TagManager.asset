@@ -6,6 +6,12 @@ TagManager:
   tags:
   - Ground
   - Wall
+  - Thomas
+  - Claire
+  - John
+  - ThomasFinish
+  - ClaireFinish
+  - JohnFinish
   layers:
   - Default
   - TransparentFX
