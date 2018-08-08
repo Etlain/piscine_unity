@@ -15,8 +15,6 @@ public class playerScript_ex00 : MonoBehaviour {
 	private static int 		  selected_player = 0;
 	private int 			  id_player = 1;
 	private bool			  b_camera = true;
-	//private static int 		  selected_player2 = 1;
-
 
 	// Use this for initialization
 	void Start () {
@@ -55,17 +53,17 @@ public class playerScript_ex00 : MonoBehaviour {
 			selected_player = 0;
 			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 		}
-		else if (Input.GetKey("a"))
+		else if (Input.GetKey("a") || Input.GetKey("1"))
 		{
 			selected_player = 1;
 			b_camera = true;
 		}
-		else if (Input.GetKey("z"))
+		else if (Input.GetKey("z") || Input.GetKey("2"))
 		{
 			selected_player = 2;
 			b_camera = true;
 		}
-		else if (Input.GetKey("e"))
+		else if (Input.GetKey("e") || Input.GetKey("3"))
 		{
 			selected_player = 3;
 			b_camera = true;

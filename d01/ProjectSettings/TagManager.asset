@@ -22,12 +22,12 @@ TagManager:
   - 
   - 
   - Ground
-  - Player
-  - 
-  - 
-  - 
-  - 
-  - 
+  - GroundRed
+  - GroundBlue
+  - GroundYellow
+  - Red
+  - Blue
+  - Yellow
   - 
   - 
   - 

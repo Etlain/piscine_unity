@@ -39,11 +39,12 @@ public class playerScript_ex01 : MonoBehaviour {
 		if (selected_player == 0)
 			initTabFinished();
 		//print(selected_player2);
-
-		id_player = selected_player;
-		selected_player++;
-		if (selected_player == numberCharacter)
-			selected_player = 0;
+		if (this.tag == "Thomas")
+			id_player = 0;
+		else if (this.tag == "John")
+			id_player = 1;
+		else if (this.tag == "Claire")
+			id_player = 2;
 	}
 
 	// Update is called once per frame
@@ -89,9 +90,12 @@ public class playerScript_ex01 : MonoBehaviour {
 			selected_player = 2;
 			b_camera = true;
 		}
+		else if (Input.GetKey("n"))
+			NextLevel();
 		if (IsVictory())
 		{
 			Debug.Log("Victory");
+			NextLevel();
 		}
 	}
 
@@ -128,6 +132,16 @@ public class playerScript_ex01 : MonoBehaviour {
 			tab_finished[selected_player] = false;
 		if (collider.gameObject.tag == "ClaireFinish" && this.tag == "Claire")
 			tab_finished[selected_player] = false;
+	}
+
+	void NextLevel()
+	{
+		int idScene;
+
+		idScene = SceneManager.GetActiveScene().buildIndex + 1;
+		if (idScene >= SceneManager.sceneCount)
+			idScene = 0;
+		SceneManager.LoadScene(idScene);
 	}
 
 	bool IsVictory()
