@@ -105,7 +105,10 @@ public class playerScript_ex01 : MonoBehaviour {
 		/*print(collision.gameObject.tag);
 		print(this.tag);*/
 		if (collision.gameObject.tag == "Ground")
+		{
+			player.transform.parent = collision.gameObject.transform;
 			b_jump = false;
+		}
 		else if (collision.gameObject.tag == "Claire" || collision.gameObject.tag == "Thomas" || collision.gameObject.tag == "John")
 			b_jump = false;
 	}
