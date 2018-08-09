@@ -12,6 +12,8 @@ TagManager:
   - ThomasFinish
   - ClaireFinish
   - JohnFinish
+  - TeleportIn
+  - TeleportOut
   layers:
   - Default
   - TransparentFX
