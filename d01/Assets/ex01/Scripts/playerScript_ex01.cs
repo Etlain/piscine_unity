@@ -21,6 +21,8 @@ public class playerScript_ex01 : MonoBehaviour {
 	private const int		  numberCharacter = 3;
 	private static bool[]	  tab_finished = new bool[numberCharacter];
 
+	private static int maxLevel = 0;
+
 	void initTabFinished()
 	{
 		int i;
@@ -148,8 +150,6 @@ public class playerScript_ex01 : MonoBehaviour {
 		int idScene;
 
 		idScene = SceneManager.GetActiveScene().buildIndex + 1;
-		//print(SceneManager.sceneCountInBuildSettings);
-		//print(SceneManager.sceneCount);
 		if (idScene > SceneManager.sceneCount)
 			idScene = 0;
 		SceneManager.LoadScene(idScene);
@@ -166,6 +166,7 @@ public class playerScript_ex01 : MonoBehaviour {
 				return (false);
 			i++;
 		}
+		initTabFinished();
 		return true;
 	}
 }
