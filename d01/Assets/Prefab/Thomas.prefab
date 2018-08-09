@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 50530224714966342}
   - component: {fileID: 61061909248735762}
   - component: {fileID: 114097444550142628}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: Thomas
   m_TagString: Thomas
   m_Icon: {fileID: 0}

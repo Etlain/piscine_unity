@@ -9,6 +9,7 @@ public class Teleport : MonoBehaviour {
 	public bool		isIn = false;
 
 	private GameObject teleport;
+	private static int idActive = 0;
 	private static bool	isTeleport = false;
 	private static GameObject player = null;
 
@@ -19,10 +20,11 @@ public class Teleport : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (isTeleport && !isIn && player && this.tag == "TeleportOut")
+		if (isTeleport && !isIn && player && this.tag == "TeleportOut" && idTeleport == idActive)
 		{
 			player.transform.position = teleport.transform.position;
 			isTeleport = false;
+			idActive = 0;
 		}
 
 	}
@@ -31,6 +33,7 @@ public class Teleport : MonoBehaviour {
 	{
 		if (this.tag == "TeleportIn")
 		{
+			idActive = idTeleport;
 			player = collider.transform.gameObject;
 			isTeleport = true;
 		}

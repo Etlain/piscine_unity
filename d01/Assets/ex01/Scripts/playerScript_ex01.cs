@@ -113,6 +113,12 @@ public class playerScript_ex01 : MonoBehaviour {
 			b_jump = false;
 	}
 
+	void OnCollisionExit2D(Collision2D collision)
+	{
+		if (collision.gameObject.tag == "Ground")
+			player.transform.parent = null;
+	}
+
 	void OnTriggerEnter2D(Collider2D collider)
 	{
 		/*print(collider.gameObject.tag);
@@ -142,7 +148,9 @@ public class playerScript_ex01 : MonoBehaviour {
 		int idScene;
 
 		idScene = SceneManager.GetActiveScene().buildIndex + 1;
-		if (idScene >= SceneManager.sceneCount)
+		//print(SceneManager.sceneCountInBuildSettings);
+		//print(SceneManager.sceneCount);
+		if (idScene > SceneManager.sceneCount)
 			idScene = 0;
 		SceneManager.LoadScene(idScene);
 	}
