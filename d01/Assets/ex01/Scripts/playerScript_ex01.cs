@@ -62,7 +62,7 @@ public class playerScript_ex01 : MonoBehaviour {
 			// application load level for restart
 			if (Input.GetKeyDown("space") && b_jump == false)
 			{
-				print("jump");
+				//print("jump");
 				player.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
 				player.GetComponent<Rigidbody2D>().AddForce(Vector3.up * jump, ForceMode2D.Impulse);
 				b_jump = true;
@@ -96,7 +96,10 @@ public class playerScript_ex01 : MonoBehaviour {
 			b_camera = true;
 		}
 		else if (Input.GetKey("n"))
+		{
+			Debug.Log("n");
 			NextLevel();
+		}
 		if (IsVictory())
 		{
 			Debug.Log("Victory");
@@ -112,9 +115,9 @@ public class playerScript_ex01 : MonoBehaviour {
 		{
 		/*	print("player pos y : "+player.transform.position.y+"collision gameobject y : "+collision.gameObject.transform.position.y);
 
-				*/print("stop jump");
+				*///print("stop jump");
 				player.transform.parent = collision.gameObject.transform;
-				print("player pos y : "+(player.transform.position.y)+"collision gameobject y : "+(collision.gameObject.transform.position.y));
+				//print("player pos y : "+(player.transform.position.y)+"collision gameobject y : "+(collision.gameObject.transform.position.y));
 				if (player.transform.position.y >= collision.gameObject.transform.position.y)
 				{
 					b_jump = false;
@@ -166,7 +169,10 @@ public class playerScript_ex01 : MonoBehaviour {
 		int idScene;
 
 		idScene = SceneManager.GetActiveScene().buildIndex + 1;
-		if (idScene > SceneManager.sceneCount)
+		print("level :"+SceneManager.sceneCount);
+		print ("Scene Count: " + SceneManager.sceneCountInBuildSettings);
+		print ("idScene: " + idScene);
+		if (idScene >= SceneManager.sceneCountInBuildSettings)
 			idScene = 0;
 		SceneManager.LoadScene(idScene);
 	}
