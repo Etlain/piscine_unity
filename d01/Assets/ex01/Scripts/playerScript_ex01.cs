@@ -21,7 +21,6 @@ public class playerScript_ex01 : MonoBehaviour {
 	private const int		  numberCharacter = 3;
 	private static bool[]	  tab_finished = new bool[numberCharacter];
 
-	private static int maxLevel = 0;
 
 	void initTabFinished()
 	{
@@ -55,12 +54,16 @@ public class playerScript_ex01 : MonoBehaviour {
 		if (selected_player == id_player)
 		{
 			if (Input.GetKey("left"))
+				//player.GetComponent<Rigidbody2D>().AddForce(Vector3.left * speed);
 				player.transform.Translate(Vector3.left * speed * Time.deltaTime);
 			else if (Input.GetKey("right"))
+				//player.GetComponent<Rigidbody2D>().MovePosition(player.GetComponent<Rigidbody2D>().position + Vector2.right * 100 * Time.deltaTime);
 				player.transform.Translate(Vector3.right * speed * Time.deltaTime);
 			// application load level for restart
 			if (Input.GetKeyDown("space") && b_jump == false)
 			{
+				print("jump");
+				player.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
 				player.GetComponent<Rigidbody2D>().AddForce(Vector3.up * jump, ForceMode2D.Impulse);
 				b_jump = true;
 			}
@@ -104,19 +107,32 @@ public class playerScript_ex01 : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D collision)
 	{
-		/*print(collision.gameObject.tag);
-		print(this.tag);*/
+		//print("On collision enter");
 		if (collision.gameObject.tag == "Ground")
 		{
-			player.transform.parent = collision.gameObject.transform;
-			b_jump = false;
+		/*	print("player pos y : "+player.transform.position.y+"collision gameobject y : "+collision.gameObject.transform.position.y);
+
+				*/print("stop jump");
+				player.transform.parent = collision.gameObject.transform;
+				print("player pos y : "+(player.transform.position.y)+"collision gameobject y : "+(collision.gameObject.transform.position.y));
+				if (player.transform.position.y >= collision.gameObject.transform.position.y)
+				{
+					b_jump = false;
+				}
+			//}
 		}
 		else if (collision.gameObject.tag == "Claire" || collision.gameObject.tag == "Thomas" || collision.gameObject.tag == "John")
 			b_jump = false;
 	}
 
+	void OnCollisionStay2D(Collision2D collision)
+	{
+		//print("On collision stay");
+	}
+
 	void OnCollisionExit2D(Collision2D collision)
 	{
+		//print("On collision exit");
 		if (collision.gameObject.tag == "Ground")
 			player.transform.parent = null;
 	}
