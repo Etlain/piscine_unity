@@ -48,16 +48,16 @@ public class playerScript_ex01 : MonoBehaviour {
 			id_player = 2;
 	}
 
-	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		//print("selected_player : "+selected_player+"id_player : "+id_player);
 		if (selected_player == id_player)
 		{
 			if (Input.GetKey("left"))
-				//player.GetComponent<Rigidbody2D>().AddForce(Vector3.left * speed);
+				//player.GetComponent<Rigidbody2D>().AddForce(Vector3.left * speed, ForceMode2D.Force);
 				player.transform.Translate(Vector3.left * speed * Time.deltaTime);
 			else if (Input.GetKey("right"))
-				//player.GetComponent<Rigidbody2D>().MovePosition(player.GetComponent<Rigidbody2D>().position + Vector2.right * 100 * Time.deltaTime);
+				//player.GetComponent<CharacterController>().Move();
+				//player.GetComponent<Rigidbody2D>().MovePosition(player.GetComponent<Rigidbody2D>().position + Vector2.right * speed * Time.deltaTime);
 				player.transform.Translate(Vector3.right * speed * Time.deltaTime);
 			// application load level for restart
 			if (Input.GetKeyDown("space") && b_jump == false)
@@ -124,6 +124,8 @@ public class playerScript_ex01 : MonoBehaviour {
 				}
 			//}
 		}
+		else if (collision.gameObject.tag == "Wall")
+			player.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
 		else if (collision.gameObject.tag == "Claire" || collision.gameObject.tag == "Thomas" || collision.gameObject.tag == "John")
 			b_jump = false;
 	}
@@ -169,9 +171,6 @@ public class playerScript_ex01 : MonoBehaviour {
 		int idScene;
 
 		idScene = SceneManager.GetActiveScene().buildIndex + 1;
-		print("level :"+SceneManager.sceneCount);
-		print ("Scene Count: " + SceneManager.sceneCountInBuildSettings);
-		print ("idScene: " + idScene);
 		if (idScene >= SceneManager.sceneCountInBuildSettings)
 			idScene = 0;
 		SceneManager.LoadScene(idScene);

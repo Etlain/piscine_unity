@@ -23,7 +23,6 @@ public class PlatformMove : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
 		if (!upMove)
 			ApplyChangeDirection(platform.transform.position.x);
 		else
@@ -44,16 +43,32 @@ public class PlatformMove : MonoBehaviour {
 		if (!upMove)
 		{
 			if (!changeDirection)
+				//platform.GetComponent<Rigidbody2D>().MovePosition(platform.GetComponent<Rigidbody2D>().position + Vector3.right * speedMove * Time.deltaTime);
 				platform.transform.Translate(Vector3.right * speedMove * Time.deltaTime);
 			else
+				//platform.GetComponent<Rigidbody2D>().MovePosition(platform.GetComponent<Rigidbody2D>().position + Vector3.left * speedMove * Time.deltaTime);
 				platform.transform.Translate(Vector3.left * speedMove * Time.deltaTime);
 		}
 		else
 		{
 			if (!changeDirection)
+				//platform.GetComponent<Rigidbody2D>().MovePosition(platform.GetComponent<Rigidbody2D>().position + Vector3.up * speedMove * Time.deltaTime);
 				platform.transform.Translate(Vector3.up * speedMove * Time.deltaTime);
 			else
+				//platform.GetComponent<Rigidbody2D>().MovePosition(platform.GetComponent<Rigidbody2D>().position + Vector3.down * speedMove * Time.deltaTime);
 				platform.transform.Translate(Vector3.down * speedMove * Time.deltaTime);
+		}
+	}
+
+	void OnCollisionEnter2D(Collision2D collision)
+	{
+		if ((collision.gameObject.tag == "Thomas" || collision.gameObject.tag == "John" || collision.gameObject.tag == "Claire") &&
+			platform.transform.position.y > collision.gameObject.transform.position.y)
+		{
+			if (changeDirection == true)
+				changeDirection = false;
+			else
+				changeDirection = true;
 		}
 	}
 
