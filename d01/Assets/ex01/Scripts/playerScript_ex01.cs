@@ -113,12 +113,13 @@ public class playerScript_ex01 : MonoBehaviour {
 		//print("On collision enter");
 		if (collision.gameObject.tag == "Ground")
 		{
-		/*	print("player pos y : "+player.transform.position.y+"collision gameobject y : "+collision.gameObject.transform.position.y);
-
-				*///print("stop jump");
+				//print("player pos y : "+(player.transform.position.y - player.transform.localScale.y)+"collision gameobject y : "+(collision.gameObject.transform.position.y));
+				print("player : (" + player.transform.position.y + ", " + player.transform.localScale.y + ", "+player.GetComponent<Collider2D>().bounds.size.y+")");
+				print("object : (" + collision.gameObject.transform.position.y + ", " + collision.gameObject.transform.localScale.y + ")");
+				//print("stop jump");
 				player.transform.parent = collision.gameObject.transform;
-				//print("player pos y : "+(player.transform.position.y)+"collision gameobject y : "+(collision.gameObject.transform.position.y));
-				if (player.transform.position.y >= collision.gameObject.transform.position.y)
+				print("player pos y : "+(player.transform.position.y - player.GetComponent<Collider2D>().bounds.size.y / 2)+"collision gameobject y : "+(collision.gameObject.transform.position.y + collision.gameObject.GetComponent<Collider2D>().bounds.size.y));
+				if (player.transform.position.y - player.GetComponent<Collider2D>().bounds.size.y / 2 > collision.gameObject.transform.position.y)
 				{
 					b_jump = false;
 				}
@@ -130,16 +131,14 @@ public class playerScript_ex01 : MonoBehaviour {
 			b_jump = false;
 	}
 
-	void OnCollisionStay2D(Collision2D collision)
-	{
-		//print("On collision stay");
-	}
-
 	void OnCollisionExit2D(Collision2D collision)
 	{
 		//print("On collision exit");
 		if (collision.gameObject.tag == "Ground")
+		{
 			player.transform.parent = null;
+			//b_jump = true;
+		}
 	}
 
 	void OnTriggerEnter2D(Collider2D collider)
