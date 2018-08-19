@@ -297,6 +297,119 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.14, y: 0.2}
   m_EdgeRadius: 0
+--- !u!1 &362311195
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 362311198}
+  - component: {fileID: 362311197}
+  - component: {fileID: 362311196}
+  - component: {fileID: 362311199}
+  m_Layer: 0
+  m_Name: RedDoor2
+  m_TagString: RedDoor
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!61 &362311196
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 362311195}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 1.25, y: 0.3125}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 2.5, y: 0.625}
+    newSize: {x: 2.5, y: 0.625}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.5, y: 0.625}
+  m_EdgeRadius: 0
+--- !u!212 &362311197
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 362311195}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: c0fb2338576246749bbd0b6e893aee8e, type: 3}
+  m_Color: {r: 0.7794118, g: 0.21777685, b: 0.21777685, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 2.5, y: 0.625}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+--- !u!4 &362311198
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 362311195}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 9.26, y: 0.01, z: 0}
+  m_LocalScale: {x: 0.3845291, y: 19.556786, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &362311199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 362311195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01866a81d9aec4332b266238a831dc9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 1
+  isDoor: 1
 --- !u!1 &739782168
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,7 +421,7 @@ GameObject:
   - component: {fileID: 739782169}
   - component: {fileID: 739782171}
   m_Layer: 0
-  m_Name: PlatformWhiteSprite (1)
+  m_Name: RedDoor1
   m_TagString: RedDoor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -405,11 +518,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4063723589300154, guid: 485bf7dfb3773432f8806b5fd93b45f5, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -8.605081
+      value: 1.56
       objectReference: {fileID: 0}
     - target: {fileID: 4063723589300154, guid: 485bf7dfb3773432f8806b5fd93b45f5, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.9983025
+      value: 0.95
       objectReference: {fileID: 0}
     - target: {fileID: 4063723589300154, guid: 485bf7dfb3773432f8806b5fd93b45f5, type: 2}
       propertyPath: m_LocalPosition.z
@@ -452,8 +565,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1073408617}
   - component: {fileID: 1073408620}
-  - component: {fileID: 1073408619}
   - component: {fileID: 1073408618}
+  - component: {fileID: 1073408619}
   m_Layer: 0
   m_Name: red
   m_TagString: Untagged
@@ -507,10 +620,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1073408616}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e6d85a1aa433450fa59e61d08bc57bb, type: 3}
+  m_Script: {fileID: 11500000, guid: 01866a81d9aec4332b266238a831dc9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door: {fileID: 739782168}
+  id: 1
+  isDoor: 0
 --- !u!212 &1073408620
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -546,7 +660,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 4568585e2ff441e49bf40de539f204e7, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -657,11 +771,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4550175311477922, guid: 9f7a7888a5876474b9a2d7ef5f857099, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -10.26423
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4550175311477922, guid: 9f7a7888a5876474b9a2d7ef5f857099, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1.0264232
+      value: 1.08
       objectReference: {fileID: 0}
     - target: {fileID: 4550175311477922, guid: 9f7a7888a5876474b9a2d7ef5f857099, type: 2}
       propertyPath: m_LocalPosition.z
@@ -704,11 +818,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4658743094123562, guid: a06b5ab0e34f442279103f003ed482b8, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -7.76
+      value: 2.41
       objectReference: {fileID: 0}
     - target: {fileID: 4658743094123562, guid: a06b5ab0e34f442279103f003ed482b8, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.38
+      value: 0.43
       objectReference: {fileID: 0}
     - target: {fileID: 4658743094123562, guid: a06b5ab0e34f442279103f003ed482b8, type: 2}
       propertyPath: m_LocalPosition.z
@@ -870,6 +984,119 @@ Transform:
   - {fileID: 1229058822}
   m_Father: {fileID: 0}
   m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1445968599
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1445968603}
+  - component: {fileID: 1445968602}
+  - component: {fileID: 1445968601}
+  - component: {fileID: 1445968600}
+  m_Layer: 0
+  m_Name: YellowDoor1
+  m_TagString: YellowDoor
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1445968600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1445968599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01866a81d9aec4332b266238a831dc9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 1
+  isDoor: 1
+--- !u!61 &1445968601
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1445968599}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 1.25, y: 0.3125}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 2.5, y: 0.625}
+    newSize: {x: 2.5, y: 0.625}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.5, y: 0.625}
+  m_EdgeRadius: 0
+--- !u!212 &1445968602
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1445968599}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: c0fb2338576246749bbd0b6e893aee8e, type: 3}
+  m_Color: {r: 0.72518504, g: 0.7794118, b: 0.21777685, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 2.5, y: 0.625}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+--- !u!4 &1445968603
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1445968599}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 11.7, y: 0.01, z: 0}
+  m_LocalScale: {x: 0.3845291, y: 19.556786, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1895210590
 GameObject:
