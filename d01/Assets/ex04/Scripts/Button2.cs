@@ -6,6 +6,7 @@ public class Button2 : MonoBehaviour {
 
 	public int			id;
 	public bool			isDoor = false;
+	public bool			isPlatform = false;
 
 	private GameObject	obj;
 	private static int	id_active = 0;
@@ -20,30 +21,63 @@ public class Button2 : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (isDoor && tabColor[0] && obj.tag == "RedDoor")
+		if (id_active == id)
 		{
-			OpenDoor(obj);
-			id_active = 0;
-			InitTabColor();
-		}
-		else if (isDoor && tabColor[1] && obj.tag == "YellowDoor")
-		{
-			OpenDoor(obj);
-			id_active = 0;
-			InitTabColor();
-		}
-		else if (isDoor && tabColor[1] && obj.tag == "BlueDoor")
-		{
-			OpenDoor(obj);
-			id_active = 0;
-			InitTabColor();
+			if (isDoor)
+			{
+				if (tabColor[0] && obj.tag == "RedDoor")
+				{
+					OpenDoor(obj);
+					id_active = 0;
+					InitTabColor();
+				}
+				else if (tabColor[1] && obj.tag == "YellowDoor")
+				{
+					OpenDoor(obj);
+					id_active = 0;
+					InitTabColor();
+				}
+				else if (tabColor[2] && obj.tag == "BlueDoor")
+				{
+					OpenDoor(obj);
+					id_active = 0;
+					InitTabColor();
+				}
+			}
+			else if (isPlatform)
+			{
+				if (tabColor[0])
+				{
+					//OpenDoor(obj);
+					obj.GetComponent<SpriteRenderer>().color = Color.red;
+					obj.layer = 9;
+					id_active = 0;
+					InitTabColor();
+				}
+				else if (tabColor[1])
+				{
+					//OpenDoor(obj);
+					obj.GetComponent<SpriteRenderer>().color = Color.yellow;
+					obj.layer = 11;
+					id_active = 0;
+					InitTabColor();
+				}
+				else if (tabColor[2])
+				{
+					//OpenDoor(obj);
+					obj.GetComponent<SpriteRenderer>().color = Color.blue;
+					obj.layer = 10;
+					id_active = 0;
+					InitTabColor();
+				}
+			}
 		}
 	}
 
 	void OnCollisionEnter2D(Collision2D collision)
 	{
 		//print(obj.tag);
-		if (isDoor)
+		if (isDoor || isPlatform)
 			return ;
 		if (collision.gameObject.tag == "Thomas")
 		{
