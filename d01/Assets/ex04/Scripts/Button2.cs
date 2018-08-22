@@ -10,7 +10,7 @@ public class Button2 : MonoBehaviour {
 
 	private GameObject	obj;
 	private static int	id_active = 0;
-
+	private bool 		bInit = false;
 												// Thomas red, John yellow, Claire blue
 	private static bool[] tabColor = new bool[3] {false, false, false};
 
@@ -21,55 +21,54 @@ public class Button2 : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+
 		if (id_active == id)
 		{
+			print("id active : "+id_active+", id :"+id);
 			if (isDoor)
 			{
 				if (tabColor[0] && obj.tag == "RedDoor")
 				{
 					OpenDoor(obj);
-					id_active = 0;
-					InitTabColor();
+					bInit = true;
 				}
 				else if (tabColor[1] && obj.tag == "YellowDoor")
 				{
 					OpenDoor(obj);
-					id_active = 0;
-					InitTabColor();
+					bInit = true;
 				}
 				else if (tabColor[2] && obj.tag == "BlueDoor")
 				{
 					OpenDoor(obj);
-					id_active = 0;
-					InitTabColor();
+					bInit = true;
 				}
 			}
-			else if (isPlatform)
+			if (isPlatform)
 			{
 				if (tabColor[0])
 				{
 					//OpenDoor(obj);
 					obj.GetComponent<SpriteRenderer>().color = Color.red;
 					obj.layer = 9;
-					id_active = 0;
-					InitTabColor();
 				}
 				else if (tabColor[1])
 				{
 					//OpenDoor(obj);
 					obj.GetComponent<SpriteRenderer>().color = Color.yellow;
 					obj.layer = 11;
-					id_active = 0;
-					InitTabColor();
 				}
 				else if (tabColor[2])
 				{
 					//OpenDoor(obj);
 					obj.GetComponent<SpriteRenderer>().color = Color.blue;
 					obj.layer = 10;
-					id_active = 0;
-					InitTabColor();
 				}
+			}
+			if (bInit)
+			{
+				id_active = 0;
+				InitTabColor();
+				bInit = false;
 			}
 		}
 	}
