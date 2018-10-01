@@ -14,6 +14,9 @@ TagManager:
   - JohnFinish
   - TeleportIn
   - TeleportOut
+  - RedDoor
+  - BlueDoor
+  - YellowDoor
   layers:
   - Default
   - TransparentFX

@@ -7,6 +7,7 @@ public class Button2 : MonoBehaviour {
 	public int			id;
 	public bool			isDoor = false;
 	public bool			isPlatform = false;
+	public bool			bInvertColor = false;
 
 	private GameObject	obj;
 	private static int	id_active = 0;
@@ -48,20 +49,42 @@ public class Button2 : MonoBehaviour {
 				if (tabColor[0])
 				{
 					//OpenDoor(obj);
-					obj.GetComponent<SpriteRenderer>().color = Color.red;
-					obj.layer = 9;
+					if (!bInvertColor)
+					{
+						obj.GetComponent<SpriteRenderer>().color = Color.red;
+						obj.layer = 9;
+					}
+					else
+					{
+						obj.GetComponent<SpriteRenderer>().color = Color.white;
+						obj.layer = 8;
+					}
 				}
 				else if (tabColor[1])
 				{
-					//OpenDoor(obj);
-					obj.GetComponent<SpriteRenderer>().color = Color.yellow;
-					obj.layer = 11;
+					if (!bInvertColor)
+					{
+						obj.GetComponent<SpriteRenderer>().color = Color.yellow;
+						obj.layer = 11;
+					}
+					else
+					{
+						obj.GetComponent<SpriteRenderer>().color = Color.white;
+						obj.layer = 8;
+					}
 				}
 				else if (tabColor[2])
 				{
-					//OpenDoor(obj);
-					obj.GetComponent<SpriteRenderer>().color = Color.blue;
-					obj.layer = 10;
+					if (!bInvertColor)
+					{
+						obj.GetComponent<SpriteRenderer>().color = Color.blue;
+						obj.layer = 10;
+					}
+					else
+					{
+						obj.GetComponent<SpriteRenderer>().color = Color.white;
+						obj.layer = 8;
+					}
 				}
 			}
 			if (bInit)

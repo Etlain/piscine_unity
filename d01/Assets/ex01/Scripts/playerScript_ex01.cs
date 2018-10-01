@@ -114,15 +114,13 @@ public class playerScript_ex01 : MonoBehaviour {
 		if (collision.gameObject.tag == "Ground")
 		{
 				//print("player pos y : "+(player.transform.position.y - player.transform.localScale.y)+"collision gameobject y : "+(collision.gameObject.transform.position.y));
-				print("player : (" + player.transform.position.y + ", " + player.transform.localScale.y + ", "+player.GetComponent<Collider2D>().bounds.size.y+")");
-				print("object : (" + collision.gameObject.transform.position.y + ", " + collision.gameObject.transform.localScale.y + ")");
+				//print("player : (" + player.transform.position.y + ", " + player.transform.localScale.y + ", "+player.GetComponent<Collider2D>().bounds.size.y+")");
+				//print("object : (" + collision.gameObject.transform.position.y + ", " + collision.gameObject.transform.localScale.y + ")");
 				//print("stop jump");
 				player.transform.parent = collision.gameObject.transform;
-				print("player pos y : "+(player.transform.position.y - player.GetComponent<Collider2D>().bounds.size.y / 2)+"collision gameobject y : "+(collision.gameObject.transform.position.y + collision.gameObject.GetComponent<Collider2D>().bounds.size.y));
+				//print("player pos y : "+(player.transform.position.y - player.GetComponent<Collider2D>().bounds.size.y / 2)+"collision gameobject y : "+(collision.gameObject.transform.position.y + collision.gameObject.GetComponent<Collider2D>().bounds.size.y));
 				if (player.transform.position.y - player.GetComponent<Collider2D>().bounds.size.y / 2 > collision.gameObject.transform.position.y)
-				{
 					b_jump = false;
-				}
 			//}
 		}
 		else if (collision.gameObject.tag == "Wall")
