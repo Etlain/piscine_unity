@@ -106,17 +106,23 @@ public class Button2 : MonoBehaviour {
 			obj.GetComponent<SpriteRenderer>().color = Color.red;
 			id_active = id;
 			tabColor[0] = true;
+			tabColor[1] = false;
+			tabColor[2] = false;
 		}
 		else if (collision.gameObject.tag == "John")
 		{
 			obj.GetComponent<SpriteRenderer>().color = Color.yellow;
 			id_active = id;
 			tabColor[1] = true;
+			tabColor[0] = false;
+			tabColor[2] = false;
 		}
 		else if (collision.gameObject.tag == "Claire")
 		{
 			obj.GetComponent<SpriteRenderer>().color = Color.blue;
 			id_active = id;
+			tabColor[0] = false;
+			tabColor[1] = false;
 			tabColor[2] = true;
 		}
 		//else if (obj.gameObject.tag == "RedDoor" )
