@@ -52,7 +52,7 @@ public class Balloon : MonoBehaviour {
 				Destroy (baloon, 0);
 			}
 			ElapsedTimeStamina -= RecoverTimeStamina;
-			Debug.Log(Stamina);
+			Debug.Log("Stamina:"+Stamina);
 		}
 	}
 }
