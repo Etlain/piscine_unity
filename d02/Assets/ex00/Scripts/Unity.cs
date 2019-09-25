@@ -4,108 +4,97 @@ using UnityEngine;
 
 public class Unity : MonoBehaviour
 {
-    public GameObject   selectedZone;
-    public GameObject   character;
-    public float        speed = 1;
-    private GameObject  unity;
-    private Animator    unityAnimator;
+    public GameObject       selectedZone;
+    public GameObject       character;
+    public float            speed = 1;
+    public float            angleOffsetAnimation = 20; // use to differentiate right movements and diagonal movements of animations
 
+    private GameObject      unity;
+    private Animator        unityAnimator;
+    private AudioSource     unityAudioSource;
     private SpriteRenderer  selectedZoneRenderer;
     private Vector3         clickTarget;
     private float           step;
-    private float           distanceX = 1;
-    private float           distanceY = 0;
     private float           angleUnityTarget = 0;
 
-    private bool isSelected = false;
-    private bool isClickTarget = false;
+    private bool            isSelected = false;
+    private bool            isClickTarget = false;
     // Start is called before the first frame update
     void Start()
     {
         unity = this.gameObject;
         unityAnimator = character.GetComponent<Animator>();
+        unityAudioSource = this.GetComponent<AudioSource>();
         if (selectedZone)
             selectedZoneRenderer = selectedZone.GetComponent<SpriteRenderer>();
-        //Debug.Log("start");
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-
+        // INPUT
         if (Input.GetMouseButtonDown(0) && isSelected == true)
             deselectedCharacter();
         else if (Input.GetMouseButtonDown(1) && isSelected == true)
             getClickTarget();
 
+        // MOVE
         if (isClickTarget)
             moveToTarget();
     }
 
     void moveToTarget()
     {
-
         step = speed * Time.deltaTime;
         unity.transform.position = Vector3.MoveTowards(unity.transform.position, clickTarget, step);
-        //unityAnimator.setFloat("Horizontal", "");
-        //Debug.Log("target pos :"+clickTarget);
-        //Debug.Log("unity pos :"+unity.transform.position);
-
         if (Vector3.Distance(unity.transform.position, clickTarget) < step)
         {
+            modifyDirectionAnimation();
             unityAnimator.SetFloat("Speed", 0);
-            //if (Mathf.Abs(distanceX) > )
-            //unityAnimator.SetFloat("Horizontal", distanceX);
-            //unityAnimator.SetFloat("Vertical", distanceY);
             isClickTarget = false;
         }
         else
         {
-            distanceX = clickTarget.x - unity.transform.position.x;
-            distanceY = clickTarget.y - unity.transform.position.y;
-
-            //if (Mathf.Abs(distanceX) > 0.1)
-            //angleUnityTarget = Vector2.SignedAngle(clickTarget, unity.transform.position);
-            angleUnityTarget = SignedAngle(unity.transform.position, clickTarget, Vector2.right);
-
-            float angleOffset = 20;
-            // LEFT
-            if (angleUnityTarget >= 180 - angleOffset || angleUnityTarget <= -180 + angleOffset)
-            {
-                unityAnimator.SetFloat("Horizontal", -1);
-                unityAnimator.SetFloat("Vertical", 0);
-            }
-            // UP
-            else if (angleUnityTarget >= 90 - angleOffset || angleUnityTarget <= 90 + angleOffset)
-            {
-                unityAnimator.SetFloat("Horizontal", 0);
-                unityAnimator.SetFloat("Vertical", 1);
-            }
-            else
-            {
-                unityAnimator.SetFloat("Horizontal", 0);
-                unityAnimator.SetFloat("Vertical", 0);
-            }
-            //else if (angleUnityTarget >= 90 - angleOffset || angleUnityTarget <= 90 + angleOffset)
-            // 180 - 90 upleft
-            // 180 left
-            // 90 up
-
-            //if ()
-            //    unityAnimator.SetFloat("Horizontal", distanceX);
-            //if (Mathf.Abs(distanceY) > 0.1)
-            //    unityAnimator.SetFloat("Vertical", distanceY);
+            modifyDirectionAnimation();
             unityAnimator.SetFloat("Speed", 1);
         }
-        Debug.Log("distanceX :"+distanceX+", distanceY :"+distanceY+", angle :"+angleUnityTarget);
     }
 
-    public static float SignedAngle( Vector3 origin, Vector3 to, Vector3 normal )
+    void modifyDirectionAnimation()
     {
-        // angle in [0,180]
-        float angle = Vector3.Angle( origin, to );
-        float sign = Mathf.Sign( Vector3.Dot( normal, Vector3.Cross( origin, to ) ) );
-        return angle * sign;
+        Vector2 vectorUnityToTarget = clickTarget - unity.transform.position;
+
+        angleUnityTarget = Vector2.SignedAngle(Vector2.right, vectorUnityToTarget);
+        // DOWN LEFT
+        if (angleUnityTarget < -90 - angleOffsetAnimation && angleUnityTarget > -180 + angleOffsetAnimation)
+            setDirectionAnimation(-1, -1);
+        // DOWN RIGHT
+        else if (angleUnityTarget < 0 - angleOffsetAnimation && angleUnityTarget > -90 + angleOffsetAnimation)
+            setDirectionAnimation(1, -1);
+        // UP LEFT
+        else if (angleUnityTarget < 180 - angleOffsetAnimation && angleUnityTarget > 90 + angleOffsetAnimation)
+            setDirectionAnimation(-1, 1);
+        // UP RIGHT
+        else if (angleUnityTarget < 90 - angleOffsetAnimation && angleUnityTarget > 0 + angleOffsetAnimation)
+            setDirectionAnimation(1, 1);
+        // RIGHT
+        else if (angleUnityTarget >= 0 - angleOffsetAnimation && angleUnityTarget <= 0 + angleOffsetAnimation)
+            setDirectionAnimation(1, 0);
+        // UP
+        else if (angleUnityTarget >= 90 - angleOffsetAnimation && angleUnityTarget <= 90 + angleOffsetAnimation)
+            setDirectionAnimation(0, 1);
+        // DOWN
+        else if (angleUnityTarget >= -90 - angleOffsetAnimation && angleUnityTarget <= -90 + angleOffsetAnimation)
+            setDirectionAnimation(0, -1);
+        // LEFT
+        else if (angleUnityTarget >= 180 - angleOffsetAnimation || angleUnityTarget <= -180 + angleOffsetAnimation)
+            setDirectionAnimation(-1, 0);
+    }
+
+    void setDirectionAnimation(float horizontal, float vertical)
+    {
+        unityAnimator.SetFloat("Horizontal", horizontal);
+        unityAnimator.SetFloat("Vertical", vertical);
     }
 
     void getClickTarget()
@@ -124,6 +113,7 @@ public class Unity : MonoBehaviour
 
     void selectedCharacter()
     {
+        unityAudioSource.Play(0);
         selectedZoneRenderer.enabled = true;
         isSelected = true;
     }
@@ -132,5 +122,11 @@ public class Unity : MonoBehaviour
     {
         selectedZoneRenderer.enabled = false;
         isSelected = false;
+    }
+
+    void OnGUI()
+    {
+        //Output the angle found above
+        GUI.Label(new Rect(25, 25, 200, 40), "Angle Between Objects" + angleUnityTarget);
     }
 }
