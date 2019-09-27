@@ -4,28 +4,52 @@ using UnityEngine;
 
 public class UnitsManager : MonoBehaviour
 {
+    public string     race = "Human"; // Human or Orc
+    public string     player = "Human"; // Human or IA
     public List<Unit> units = new List<Unit>();
+
+    private delegate void   delegateAction();
+    private delegateAction action;
 
     GameObject        clickedObject;
     Unit              clickedUnit;
     int               nbrSelectedUnits = 0;
+    string            raceTag = null;
 
     // Start is called before the first frame update
     void Start()
     {
+        if (race.Equals("Orc"))
+            raceTag = "OrcUnit";
+        else
+            raceTag = "HumanUnit";
+        if (!player.Equals("Human"))
+        {
+            action = actionIA;
+            player = "IA";
+        }
+        else
+            action = actionPlayer;
+
     }
 
     void FixedUpdate()
     {
+        action();
+    }
+
+    void actionIA()
+    {
+        Debug.Log("test delegate");
+    }
+
+    void actionPlayer()
+    {
         // SELECTION
         if (Input.GetMouseButtonDown(0) && (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)))
-        {
             managerSelectionUnits(false);
-        }
         else if (Input.GetMouseButtonDown(0))
-        {
             managerSelectionUnits(true); // deselected when use click left two time for selected units
-        }
         // MOVE
         else if (Input.GetMouseButtonDown(1))
             moveUnits();
@@ -34,7 +58,7 @@ public class UnitsManager : MonoBehaviour
     void managerSelectionUnits(bool canDeselected)
     {
         clickedObject = getClickedObject();
-        if (clickedObject && clickedObject.tag.Equals("Unit"))
+        if (clickedObject && clickedObject.tag.Equals(raceTag))
         {
             if (nbrSelectedUnits > 0 && canDeselected)
                 deselectedUnits();
@@ -61,7 +85,7 @@ public class UnitsManager : MonoBehaviour
     void moveUnits()
     {
         clickedObject = getClickedObject();
-        if (clickedObject && clickedObject.tag.Equals("Unit"))
+        if (clickedObject && clickedObject.tag.Equals(raceTag))
             return ;
         foreach (Unit unit in units)
         {
@@ -85,5 +109,8 @@ public class UnitsManager : MonoBehaviour
         nbrSelectedUnits = 0;
     }
 
-    // function check if just one unit is selected
+    public void addUnit(GameObject unit)
+    {
+         units.Add(unit.GetComponent<Unit>());
+    }
 }
