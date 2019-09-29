@@ -136,7 +136,7 @@ public class UnitsManager : MonoBehaviour
 
     void attackUnits(GameObject targetOfAttack)
     {
-        Debug.Log("Vous allez périiiir vil démon");
+        //  Debug.Log("Vous allez périiiir vil démon");
         foreach (Unit unit in units)
         {
             if (unit.getIsSelected())
@@ -177,20 +177,6 @@ public class UnitsManager : MonoBehaviour
     public void addUnit(GameObject unit)
     {
          units.Add(unit.GetComponent<Unit>());
-    }
-
-    void OnTriggerEnter2D(Collider2D other){
-        //Debug.Log("test");
-     /*if (other.tag == "player") {
-
-             // playerCollides with the Enemy
-
-         }*/
-    }
-
-    void OnCollisionEnter2D(Collision2D col)
-    {
-        //Debug.Log("OnCollisionEnter2D");
     }
 
 }

@@ -82,6 +82,19 @@ public class Unit : MonoBehaviour
         }
     }
 
+    void OnTriggerStay2D(Collider2D other)
+    {
+        Debug.Log("test :"+other.tag);
+        //setOrder((int)UnitOrder.STAY);
+        if (order == (int)UnitOrder.STAY && isEnemyRace(other.tag))
+        {
+            Debug.Log("test 2 :"+other.tag);
+
+            target = other.gameObject;
+            setOrder((int)UnitOrder.ATTACK);
+        }
+    }
+
     void OnTriggerExit2D(Collider2D other)
     {
         Debug.Log("test :"+other.tag);
@@ -106,47 +119,60 @@ public class Unit : MonoBehaviour
         unit.transform.position = Vector3.MoveTowards(unit.transform.position, clickTarget, step);
         if (Vector3.Distance(unit.transform.position, clickTarget) < step)
         {
-            modifyDirectionAnimation();
+            modifyDirectionClickTarget();
             unitAnimator.SetFloat("Speed", 0);
             unitAnimator.SetBool("Attack", false);
             isClickTarget = false;
         }
         else
         {
-            modifyDirectionAnimation();
+            modifyDirectionClickTarget();
             unitAnimator.SetFloat("Speed", 1);
             unitAnimator.SetBool("Attack", false);
         }
     }
 
-    void modifyDirectionAnimation()
+    void modifyDirectionClickTarget()
     {
         Vector2 vectorUnitToTarget = clickTarget - unit.transform.position;
 
         angleUnitTarget = Vector2.SignedAngle(Vector2.right, vectorUnitToTarget);
+        modifyDirection(angleUnitTarget);
+    }
+
+    void modifyDirectionAttack()
+    {
+        Vector2 vectorUnitToTarget = target.transform.position - unit.transform.position;
+
+        angleUnitTarget = Vector2.SignedAngle(Vector2.right, vectorUnitToTarget);
+        modifyDirection(angleUnitTarget);
+    }
+
+    void modifyDirection(float angle)
+    {
         // DOWN LEFT
-        if (angleUnitTarget < -90 - angleOffsetAnimation && angleUnitTarget > -180 + angleOffsetAnimation)
+        if (angle < -90 - angleOffsetAnimation && angle > -180 + angleOffsetAnimation)
             setDirectionAnimation(-1, -1);
         // DOWN RIGHT
-        else if (angleUnitTarget < 0 - angleOffsetAnimation && angleUnitTarget > -90 + angleOffsetAnimation)
+        else if (angle < 0 - angleOffsetAnimation && angle > -90 + angleOffsetAnimation)
             setDirectionAnimation(1, -1);
         // UP LEFT
-        else if (angleUnitTarget < 180 - angleOffsetAnimation && angleUnitTarget > 90 + angleOffsetAnimation)
+        else if (angle < 180 - angleOffsetAnimation && angle > 90 + angleOffsetAnimation)
             setDirectionAnimation(-1, 1);
         // UP RIGHT
-        else if (angleUnitTarget < 90 - angleOffsetAnimation && angleUnitTarget > 0 + angleOffsetAnimation)
+        else if (angle < 90 - angleOffsetAnimation && angle > 0 + angleOffsetAnimation)
             setDirectionAnimation(1, 1);
         // RIGHT
-        else if (angleUnitTarget >= 0 - angleOffsetAnimation && angleUnitTarget <= 0 + angleOffsetAnimation)
+        else if (angle >= 0 - angleOffsetAnimation && angle <= 0 + angleOffsetAnimation)
             setDirectionAnimation(1, 0);
         // UP
-        else if (angleUnitTarget >= 90 - angleOffsetAnimation && angleUnitTarget <= 90 + angleOffsetAnimation)
+        else if (angle >= 90 - angleOffsetAnimation && angle <= 90 + angleOffsetAnimation)
             setDirectionAnimation(0, 1);
         // DOWN
-        else if (angleUnitTarget >= -90 - angleOffsetAnimation && angleUnitTarget <= -90 + angleOffsetAnimation)
+        else if (angle >= -90 - angleOffsetAnimation && angle <= -90 + angleOffsetAnimation)
             setDirectionAnimation(0, -1);
         // LEFT
-        else if (angleUnitTarget >= 180 - angleOffsetAnimation || angleUnitTarget <= -180 + angleOffsetAnimation)
+        else if (angle >= 180 - angleOffsetAnimation || angle <= -180 + angleOffsetAnimation)
             setDirectionAnimation(-1, 0);
     }
 
@@ -203,12 +229,14 @@ public class Unit : MonoBehaviour
     void        attackTarget(GameObject target)
     {
         // if target is units
-        Debug.Log("attack Target");
+        //Debug.Log("attack Target");
         if (isEnemyRace(target.tag))
         {
-            Debug.Log("kill this unit is an order");
+            //Debug.Log("kill this unit is an order");
             unitAnimator.SetFloat("Speed", 0);
+            modifyDirectionAttack();
             unitAnimator.SetBool("Attack", true);
+
             // target.GetComponent<Unit>().loseLife(damage);
         }
     }
