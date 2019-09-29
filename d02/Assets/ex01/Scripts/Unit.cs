@@ -8,11 +8,20 @@ public class Unit : MonoBehaviour
     {
         STAY = 0,
         MOVE = 1,
-        ATTACK = 2
+        ATTACK = 2,
+        END = 3
+    };
+
+    public enum UnitRace
+    {
+        HUMAN = 0,
+        ORC = 1
     };
 
     public GameObject       selectedZone;
     public GameObject       character;
+    public float            life = 100;
+    public float            damage = 20;
     public float            speed = 1;
     public float            angleOffsetAnimation = 20; // use to differentiate right movements and diagonal movements of animations
 
@@ -21,9 +30,11 @@ public class Unit : MonoBehaviour
     private AudioSource     unitAudioSource;
     private SpriteRenderer  selectedZoneRenderer;
     private Vector3         clickTarget;
+    private int             race = 0;
     private int             order;
     private float           step;
     private float           angleUnitTarget = 0;
+    private GameObject      target = null;
 
     private bool            isSelected = false;
     private bool            isClickTarget = false;
@@ -34,6 +45,10 @@ public class Unit : MonoBehaviour
         unit = this.gameObject;
         unitAnimator = character.GetComponent<Animator>();
         unitAudioSource = this.GetComponent<AudioSource>();
+        if (unit.Equals("OrcUnit"))
+            race = (int)UnitRace.ORC;
+        else
+            race = (int)UnitRace.HUMAN;
         if (selectedZone)
             selectedZoneRenderer = selectedZone.GetComponent<SpriteRenderer>();
     }
@@ -43,7 +58,31 @@ public class Unit : MonoBehaviour
     {
         if (order == (int)UnitOrder.MOVE && isClickTarget)
             moveToTarget();
+        else if (order == (int)UnitOrder.ATTACK && target)
+            attackTarget(target);
+        else if (order == (int)UnitOrder.STAY)
+            unitAnimator.SetFloat("Speed", 0);
     }
+
+
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("test");
+        setOrder((int)UnitOrder.STAY);
+        /*if (other.tag == "player") {
+
+             // playerCollides with the Enemy
+
+         }*/
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        //Debug.Log("OnCollisionEnter2D");
+    }
+
+// FUNCTION MOVE
 
     void moveToTarget()
     {
@@ -99,6 +138,8 @@ public class Unit : MonoBehaviour
         unitAnimator.SetFloat("Vertical", vertical);
     }
 
+// FUNCTION ORDER
+
     public void setOrder(int cmd)
     {
         order = cmd;
@@ -108,6 +149,9 @@ public class Unit : MonoBehaviour
     {
         return ((int)order);
     }
+
+
+// FUNCTION SELECTION
 
     // target, is the position of the movement
     public void setClickTarget(Vector3 target)
@@ -134,5 +178,45 @@ public class Unit : MonoBehaviour
     {
         selectedZoneRenderer.enabled = false;
         isSelected = false;
+    }
+
+// FUNCTION ATTACK
+
+    void        attackTarget(GameObject target)
+    {
+        // if target is units
+
+        if (target.tag.IndexOf("Orc") >= -1)
+        {
+            Debug.Log("kill this unit is an order");
+            // target.GetComponent<Unit>().loseLife(damage);
+        }
+    }
+
+// FUNCTION DEAD
+
+    public void loseLife(float damageTaken)
+    {
+        life -= damageTaken;
+        if (life <= 0)
+            dead();
+    }
+
+    void dead()
+    {
+        Debug.Log("You dead bwahahaha");
+    }
+
+// Function Race
+
+    public int getRace()
+    {
+        return (race);
+    }
+
+    public void setAttackTarget(GameObject trgt)
+    {
+        if (trgt && trgt.tag.IndexOf("Orc") >= 0)
+            target = trgt;
     }
 }

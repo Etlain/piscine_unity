@@ -11,18 +11,25 @@ public class UnitsManager : MonoBehaviour
     private delegate void   delegateAction();
     private delegateAction action;
 
-    GameObject        clickedObject;
+    GameObject        clickedObject = null;
     Unit              clickedUnit;
     int               nbrSelectedUnits = 0;
     string            raceTag = null;
+    string            enemyRaceTag = null;
 
     // Start is called before the first frame update
     void Start()
     {
         if (race.Equals("Orc"))
+        {
             raceTag = "OrcUnit";
+            enemyRaceTag = "HumanUnit";
+        }
         else
+        {
             raceTag = "HumanUnit";
+            enemyRaceTag = "OrcUnit";
+        }
         if (!player.Equals("Human"))
         {
             action = actionIA;
@@ -45,31 +52,15 @@ public class UnitsManager : MonoBehaviour
 
     void actionPlayer()
     {
-        // SELECTION
+        // SELECT UNITS CLICK LEFT AND MAJ
         if (Input.GetMouseButtonDown(0) && (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)))
-            managerSelectionUnits(false);
+            actionClickLeftAndMaj();
+        // SELECT UNITS OR ATTACK WITH CLICK LEFT
         else if (Input.GetMouseButtonDown(0))
-            managerSelectionUnits(true); // deselected when use click left two time for selected units
-        // MOVE
+            actionClickLeft();
+        // MOVE OR ATTACK CLICK RIGHT
         else if (Input.GetMouseButtonDown(1))
-            moveUnits();
-    }
-
-    void managerSelectionUnits(bool canDeselected)
-    {
-        clickedObject = getClickedObject();
-        if (clickedObject && clickedObject.tag.Equals(raceTag))
-        {
-            if (nbrSelectedUnits > 0 && canDeselected)
-                deselectedUnits();
-            else
-            {
-                clickedObject.GetComponent<Unit>().selectedCharacter();
-                nbrSelectedUnits++;
-            }
-        }
-        else if (canDeselected)
-            deselectedUnits();
+            actionClickRight();
     }
 
     GameObject getClickedObject()
@@ -82,11 +73,82 @@ public class UnitsManager : MonoBehaviour
         return (null);
     }
 
-    void moveUnits()
+    string  getTagObject(GameObject gameObject)
+    {
+        if (!gameObject)
+            return ("");
+        else
+            return (gameObject.tag);
+    }
+
+// Action Input
+
+    void actionClickLeftAndMaj()
     {
         clickedObject = getClickedObject();
         if (clickedObject && clickedObject.tag.Equals(raceTag))
+        {
+            clickedObject.GetComponent<Unit>().selectedCharacter();
+            nbrSelectedUnits++;
+        }
+        clickedObject = null;
+    }
+
+    void actionClickLeft()
+    {
+        string tagClickedObject;
+
+        clickedObject = getClickedObject();
+        tagClickedObject = getTagObject(clickedObject);
+        if (nbrSelectedUnits > 0 && tagClickedObject.Equals(enemyRaceTag))
+            attackUnits(clickedObject);
+        else if (tagClickedObject.Equals(raceTag))
+        {
+            if (nbrSelectedUnits > 0)
+                deselectedUnits();
+            else
+            {
+                clickedObject.GetComponent<Unit>().selectedCharacter();
+                nbrSelectedUnits++;
+            }
+        }
+        else
+            deselectedUnits();
+        clickedObject = null;
+    }
+
+    void actionClickRight()
+    {
+        string tagClickedObject;
+
+        clickedObject = getClickedObject();
+        tagClickedObject = getTagObject(clickedObject);
+        if (tagClickedObject.Equals(raceTag))
             return ;
+        else if (tagClickedObject.Equals(enemyRaceTag))
+            attackUnits(clickedObject);
+        else
+            moveUnits();
+        clickedObject = null;
+    }
+
+// functions Units
+
+    void attackUnits(GameObject targetOfAttack)
+    {
+        Debug.Log("Vous allez périiiir vil démon");
+        foreach (Unit unit in units)
+        {
+            if (unit.getIsSelected())
+            {
+                unit.setAttackTarget(targetOfAttack);
+                unit.setOrder((int)Unit.UnitOrder.ATTACK);
+            }
+        }
+    }
+
+    void moveUnits()
+    {
         foreach (Unit unit in units)
         {
             if (unit.getIsSelected())
@@ -113,4 +175,19 @@ public class UnitsManager : MonoBehaviour
     {
          units.Add(unit.GetComponent<Unit>());
     }
+
+    void OnTriggerEnter2D(Collider2D other){
+        //Debug.Log("test");
+     /*if (other.tag == "player") {
+
+             // playerCollides with the Enemy
+
+         }*/
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        //Debug.Log("OnCollisionEnter2D");
+    }
+
 }

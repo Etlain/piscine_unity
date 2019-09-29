@@ -191,6 +191,7 @@ GameObject:
   - component: {fileID: 1725957174640824930}
   - component: {fileID: 1725957174640824933}
   - component: {fileID: 1725957174640824959}
+  - component: {fileID: 2024343673024800883}
   m_Layer: 0
   m_Name: Footman
   m_TagString: HumanUnit
@@ -398,5 +399,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedZone: {fileID: 1725957173587477604}
   character: {fileID: 1725957173205258783}
+  life: 100
+  damage: 20
   speed: 5
   angleOffsetAnimation: 20
+--- !u!50 &2024343673024800883
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725957174640824958}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
