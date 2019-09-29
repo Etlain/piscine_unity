@@ -45,7 +45,7 @@ public class Unit : MonoBehaviour
         unit = this.gameObject;
         unitAnimator = character.GetComponent<Animator>();
         unitAudioSource = this.GetComponent<AudioSource>();
-        if (unit.Equals("OrcUnit"))
+        if (unit && unit.tag.IndexOf("Orc") >= 0)
             race = (int)UnitRace.ORC;
         else
             race = (int)UnitRace.HUMAN;
@@ -58,23 +58,39 @@ public class Unit : MonoBehaviour
     {
         if (order == (int)UnitOrder.MOVE && isClickTarget)
             moveToTarget();
-        else if (order == (int)UnitOrder.ATTACK && target)
+        else if (order == (int)UnitOrder.ATTACK/* && target*/)
             attackTarget(target);
         else if (order == (int)UnitOrder.STAY)
+        {
             unitAnimator.SetFloat("Speed", 0);
+            unitAnimator.SetBool("Attack", false);
+        }
     }
 
 
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("test");
-        setOrder((int)UnitOrder.STAY);
-        /*if (other.tag == "player") {
+        Debug.Log("test :"+other.tag);
+        //setOrder((int)UnitOrder.STAY);
+        if (isEnemyRace(other.tag))
+        {
+            Debug.Log("test 2 :"+other.tag);
 
-             // playerCollides with the Enemy
+            target = other.gameObject;
+            setOrder((int)UnitOrder.ATTACK);
+        }
+    }
 
-         }*/
+    void OnTriggerExit2D(Collider2D other)
+    {
+        Debug.Log("test :"+other.tag);
+        //setOrder((int)UnitOrder.STAY);
+        if (order == (int)UnitOrder.ATTACK)
+        {
+            target = null;
+            setOrder((int)UnitOrder.STAY);
+        }
     }
 
     void OnCollisionEnter2D(Collision2D col)
@@ -92,12 +108,14 @@ public class Unit : MonoBehaviour
         {
             modifyDirectionAnimation();
             unitAnimator.SetFloat("Speed", 0);
+            unitAnimator.SetBool("Attack", false);
             isClickTarget = false;
         }
         else
         {
             modifyDirectionAnimation();
             unitAnimator.SetFloat("Speed", 1);
+            unitAnimator.SetBool("Attack", false);
         }
     }
 
@@ -185,10 +203,12 @@ public class Unit : MonoBehaviour
     void        attackTarget(GameObject target)
     {
         // if target is units
-
-        if (target.tag.IndexOf("Orc") >= -1)
+        Debug.Log("attack Target");
+        if (isEnemyRace(target.tag))
         {
             Debug.Log("kill this unit is an order");
+            unitAnimator.SetFloat("Speed", 0);
+            unitAnimator.SetBool("Attack", true);
             // target.GetComponent<Unit>().loseLife(damage);
         }
     }
@@ -214,9 +234,18 @@ public class Unit : MonoBehaviour
         return (race);
     }
 
+    bool isEnemyRace(string rc)
+    {
+        if (race == (int)UnitRace.ORC && rc.IndexOf("Human") >= 0)
+            return true;
+        else if (race == (int)UnitRace.HUMAN && rc.IndexOf("Orc") >= 0)
+            return true;
+        return false;
+    }
+
     public void setAttackTarget(GameObject trgt)
     {
-        if (trgt && trgt.tag.IndexOf("Orc") >= 0)
+        if (trgt && isEnemyRace(trgt.tag))
             target = trgt;
     }
 }

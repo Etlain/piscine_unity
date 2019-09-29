@@ -141,8 +141,11 @@ public class UnitsManager : MonoBehaviour
         {
             if (unit.getIsSelected())
             {
-                unit.setAttackTarget(targetOfAttack);
-                unit.setOrder((int)Unit.UnitOrder.ATTACK);
+                //unit.setAttackTarget(targetOfAttack);
+                unit.setClickTarget(Input.mousePosition);
+                unit.setOrder((int)Unit.UnitOrder.MOVE);
+                /*unit.setAttackTarget(targetOfAttack);
+                unit.setOrder((int)Unit.UnitOrder.ATTACK);*/
             }
         }
     }
