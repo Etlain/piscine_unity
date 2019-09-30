@@ -220,6 +220,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedZone: {fileID: 8691621908472151872}
   character: {fileID: 8691621908919871803}
+  life: 100
+  damage: 20
   speed: 5
   angleOffsetAnimation: 20
 --- !u!1 &8691621908472151872
@@ -312,6 +314,7 @@ GameObject:
   - component: {fileID: 8691621908919871781}
   - component: {fileID: 8691621908919871802}
   - component: {fileID: 8691621908919871780}
+  - component: {fileID: 9136068005292215873}
   m_Layer: 0
   m_Name: orc_2
   m_TagString: Untagged
@@ -400,3 +403,15 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &9136068005292215873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8691621908919871803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50c284080fbcab648ba89f9d3796d308, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -52,6 +52,7 @@ public class UnitsManager : MonoBehaviour
 
     void actionPlayer()
     {
+        verifyIsAlive();
         // SELECT UNITS CLICK LEFT AND MAJ
         if (Input.GetMouseButtonDown(0) && (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)))
             actionClickLeftAndMaj();
@@ -85,6 +86,7 @@ public class UnitsManager : MonoBehaviour
 
     void actionClickLeftAndMaj()
     {
+        verifyList();
         clickedObject = getClickedObject();
         if (clickedObject && clickedObject.tag.Equals(raceTag))
         {
@@ -98,6 +100,7 @@ public class UnitsManager : MonoBehaviour
     {
         string tagClickedObject;
 
+        verifyList();
         clickedObject = getClickedObject();
         tagClickedObject = getTagObject(clickedObject);
         if (nbrSelectedUnits > 0 && tagClickedObject.Equals(enemyRaceTag))
@@ -121,6 +124,7 @@ public class UnitsManager : MonoBehaviour
     {
         string tagClickedObject;
 
+        verifyList();
         clickedObject = getClickedObject();
         tagClickedObject = getTagObject(clickedObject);
         if (tagClickedObject.Equals(raceTag))
@@ -166,7 +170,9 @@ public class UnitsManager : MonoBehaviour
     {
         foreach (Unit unit in units)
         {
-            if (unit.getIsSelected())
+            if (!unit)
+                units.Remove(unit);
+            else if (unit.getIsSelected())
             {
                 unit.deselectedCharacter();
             }
@@ -177,6 +183,26 @@ public class UnitsManager : MonoBehaviour
     public void addUnit(GameObject unit)
     {
          units.Add(unit.GetComponent<Unit>());
+    }
+
+    void verifyList()
+    {
+        for (int i = 0; i < units.Count - 1; i++)
+        {
+            if (!units[i])
+                units.Remove(units[i]);
+        }
+    }
+
+    void verifyIsAlive()
+    {
+        for (int i = 0; i < units.Count - 1; i++)
+        {
+            if (!units[i].getIsAlive() && units[i].getIsSelected())
+                nbrSelectedUnits--;
+        }
+        if (nbrSelectedUnits < 0)
+            nbrSelectedUnits = 0;
     }
 
 }

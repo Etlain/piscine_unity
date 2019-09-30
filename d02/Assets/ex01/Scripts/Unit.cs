@@ -9,7 +9,8 @@ public class Unit : MonoBehaviour
         STAY = 0,
         MOVE = 1,
         ATTACK = 2,
-        END = 3
+        DEAD = 3,
+        END = 4
     };
 
     public enum UnitRace
@@ -58,7 +59,7 @@ public class Unit : MonoBehaviour
     {
         if (order == (int)UnitOrder.MOVE && isClickTarget)
             moveToTarget();
-        else if (order == (int)UnitOrder.ATTACK/* && target*/)
+        else if (order == (int)UnitOrder.ATTACK && target)
             attackTarget(target);
         else if (order == (int)UnitOrder.STAY)
         {
@@ -71,9 +72,9 @@ public class Unit : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("test :"+other.tag);
+        //Debug.Log("test :"+other.tag);
         //setOrder((int)UnitOrder.STAY);
-        if (isEnemyRace(other.tag))
+        if (other && isEnemyRace(other.tag))
         {
             Debug.Log("test 2 :"+other.tag);
 
@@ -84,9 +85,9 @@ public class Unit : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D other)
     {
-        Debug.Log("test :"+other.tag);
+        //Debug.Log("test :"+other.tag);
         //setOrder((int)UnitOrder.STAY);
-        if (order == (int)UnitOrder.STAY && isEnemyRace(other.tag))
+        if (other && order == (int)UnitOrder.STAY && isEnemyRace(other.tag))
         {
             Debug.Log("test 2 :"+other.tag);
 
@@ -97,7 +98,7 @@ public class Unit : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
-        Debug.Log("test :"+other.tag);
+        //Debug.Log("test :"+other.tag);
         //setOrder((int)UnitOrder.STAY);
         if (order == (int)UnitOrder.ATTACK)
         {
@@ -241,6 +242,13 @@ public class Unit : MonoBehaviour
         }
     }
 
+    public void        attack()
+    {
+        if (target)
+            target.GetComponent<Unit>().loseLife(damage);
+        Debug.Log("attack");
+    }
+
 // FUNCTION DEAD
 
     public void loseLife(float damageTaken)
@@ -252,7 +260,16 @@ public class Unit : MonoBehaviour
 
     void dead()
     {
+        unitAnimator.SetBool("Alive", false);
+        order = (int)UnitOrder.DEAD;
+        damage = 0;
         Debug.Log("You dead bwahahaha");
+    }
+
+    public void destroyUnit()
+    {
+        Debug.Log("dest");
+        Destroy(this.gameObject);
     }
 
 // Function Race
@@ -275,5 +292,12 @@ public class Unit : MonoBehaviour
     {
         if (trgt && isEnemyRace(trgt.tag))
             target = trgt;
+    }
+
+    public bool getIsAlive()
+    {
+        if (order == (int)UnitOrder.DEAD)
+            return false;
+        return true;
     }
 }
