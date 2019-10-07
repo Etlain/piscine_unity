@@ -31,10 +31,6 @@ public class BuildingsManager : MonoBehaviour
         }
     }
 
-    void test()
-    {
-        Debug.Log("hi man");
-    }
 
     void spawnUnits()
     {

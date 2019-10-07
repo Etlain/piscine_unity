@@ -47,7 +47,7 @@ public class UnitsManager : MonoBehaviour
 
     void actionIA()
     {
-        Debug.Log("test delegate");
+        //Debug.Log("test delegate");
     }
 
     void actionPlayer()

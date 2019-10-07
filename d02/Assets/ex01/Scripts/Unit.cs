@@ -242,10 +242,15 @@ public class Unit : MonoBehaviour
         }
     }
 
-    public void        attack()
+    public void attack()
     {
         if (target)
-            target.GetComponent<Unit>().loseLife(damage);
+        {
+            if (target.GetComponent<Unit>())
+                target.GetComponent<Unit>().loseLife(damage);
+            else if (target.GetComponent<Buildings>())
+                target.GetComponent<Buildings>().loseLife(damage);
+        }
         Debug.Log("attack");
     }
 
