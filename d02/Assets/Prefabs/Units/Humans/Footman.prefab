@@ -312,7 +312,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 0d34fc58d4d934c90affab216fbf4861, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 0.388
   m_Pitch: 1
@@ -416,6 +416,9 @@ MonoBehaviour:
   damage: 20
   speed: 5
   angleOffsetAnimation: 20
+  selectedSound: {fileID: 8300000, guid: 0d34fc58d4d934c90affab216fbf4861, type: 3}
+  attackSound: {fileID: 8300000, guid: ba0301fd5a0414708afa833ca150cb31, type: 3}
+  deadSound: {fileID: 8300000, guid: d505e4dd43f044353a8df1223f5dfefd, type: 3}
 --- !u!50 &2024343673024800883
 Rigidbody2D:
   serializedVersion: 4

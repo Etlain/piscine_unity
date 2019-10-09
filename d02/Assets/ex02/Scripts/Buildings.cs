@@ -5,10 +5,14 @@ using UnityEngine;
 public class Buildings : MonoBehaviour
 {
     public float      life = 500;
+
+    private AudioSource buildingsAudioSource;
+    private float       maxLife;
     // Start is called before the first frame update
     void Start()
     {
-
+        maxLife = life;
+        buildingsAudioSource = this.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -30,14 +34,29 @@ public class Buildings : MonoBehaviour
         //unitAnimator.SetBool("Alive", false);
         //order = (int)UnitOrder.DEAD;
         //damage = 0;
-        destroyUnit();
+        //destroyBuildings();
+        buildingsAudioSource.Play();
+        this.gameObject.GetComponent<Collider2D>().enabled = false;
+        Destroy(this.gameObject, buildingsAudioSource.clip.length);
         Debug.Log("You dead bwahahaha");
     }
 
-    public void destroyUnit()
+    public float getLife()
+    {
+        return (life);
+    }
+
+    public float getMaxLife()
+    {
+        return (maxLife);
+    }
+
+    public void destroyBuildings()
     {
         //Debug.Log("dest");
-        Destroy(this.gameObject);
+        dead();
+
     }
+
 
 }

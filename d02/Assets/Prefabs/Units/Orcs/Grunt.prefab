@@ -120,7 +120,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d08f12780701f443e952f7a16b60e5a9, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 0.388
   m_Pitch: 1
@@ -220,10 +220,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedZone: {fileID: 8691621908472151872}
   character: {fileID: 8691621908919871803}
+  maxLife: 100
   life: 100
   damage: 20
   speed: 5
   angleOffsetAnimation: 20
+  selectedSound: {fileID: 8300000, guid: d08f12780701f443e952f7a16b60e5a9, type: 3}
+  attackSound: {fileID: 8300000, guid: e897b0384f4224b62b1ea3ea57009278, type: 3}
+  deadSound: {fileID: 8300000, guid: ecc6df5e38e6b4fcb93c0ba729d9e42d, type: 3}
 --- !u!1 &8691621908472151872
 GameObject:
   m_ObjectHideFlags: 0

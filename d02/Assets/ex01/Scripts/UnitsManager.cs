@@ -187,7 +187,7 @@ public class UnitsManager : MonoBehaviour
 
     void verifyList()
     {
-        for (int i = 0; i < units.Count - 1; i++)
+        for (int i = 0; i < units.Count; i++)
         {
             if (!units[i])
                 units.Remove(units[i]);
@@ -196,7 +196,7 @@ public class UnitsManager : MonoBehaviour
 
     void verifyIsAlive()
     {
-        for (int i = 0; i < units.Count - 1; i++)
+        for (int i = 0; i < units.Count; i++)
         {
             if (!units[i].getIsAlive() && units[i].getIsSelected())
                 nbrSelectedUnits--;

@@ -26,6 +26,10 @@ public class Unit : MonoBehaviour
     public float            speed = 1;
     public float            angleOffsetAnimation = 20; // use to differentiate right movements and diagonal movements of animations
 
+    public AudioClip        selectedSound;
+    public AudioClip        attackSound;
+    public AudioClip        deadSound;
+
     private GameObject      unit;
     private Animator        unitAnimator;
     private AudioSource     unitAudioSource;
@@ -36,12 +40,14 @@ public class Unit : MonoBehaviour
     private float           step;
     private float           angleUnitTarget = 0;
     private GameObject      target = null;
+    private float           maxLife;
 
     private bool            isSelected = false;
     private bool            isClickTarget = false;
     // Start is called before the first frame update
     void Start()
     {
+        maxLife = life;
         order = (int)UnitOrder.STAY;
         unit = this.gameObject;
         unitAnimator = character.GetComponent<Animator>();
@@ -76,7 +82,7 @@ public class Unit : MonoBehaviour
         //setOrder((int)UnitOrder.STAY);
         if (other && isEnemyRace(other.tag))
         {
-            Debug.Log("test 2 :"+other.tag);
+            //Debug.Log("test 2 :"+other.tag);
 
             target = other.gameObject;
             setOrder((int)UnitOrder.ATTACK);
@@ -89,7 +95,7 @@ public class Unit : MonoBehaviour
         //setOrder((int)UnitOrder.STAY);
         if (other && order == (int)UnitOrder.STAY && isEnemyRace(other.tag))
         {
-            Debug.Log("test 2 :"+other.tag);
+            //Debug.Log("test 2 :"+other.tag);
 
             target = other.gameObject;
             setOrder((int)UnitOrder.ATTACK);
@@ -214,7 +220,8 @@ public class Unit : MonoBehaviour
 
     public void selectedCharacter()
     {
-        unitAudioSource.Play(0);
+        unitAudioSource.clip = selectedSound;
+        unitAudioSource.Play();
         selectedZoneRenderer.enabled = true;
         isSelected = true;
     }
@@ -247,11 +254,32 @@ public class Unit : MonoBehaviour
         if (target)
         {
             if (target.GetComponent<Unit>())
-                target.GetComponent<Unit>().loseLife(damage);
+            {
+                Unit tmpUnit = target.GetComponent<Unit>();
+                Debug.Log(tmpUnit.getStringRace()+" Unit ["+tmpUnit.getLife()+"/"+tmpUnit.getMaxLife()+"] has been attacked");
+                tmpUnit.loseLife(damage);
+            }
             else if (target.GetComponent<Buildings>())
-                target.GetComponent<Buildings>().loseLife(damage);
+            {
+                Buildings tmpBuilding = target.GetComponent<Buildings>();
+                Debug.Log(getStringOppositeRace() + " Building : "+target.name+" ["+tmpBuilding.getLife()+"/"+tmpBuilding.getMaxLife()+"] has been attacked");
+                tmpBuilding.loseLife(damage);
+            }
+            unitAudioSource.clip = attackSound;
+            unitAudioSource.Play();
+
         }
-        Debug.Log("attack");
+
+    }
+
+    public float getLife()
+    {
+        return (life);
+    }
+
+    public float getMaxLife()
+    {
+        return (maxLife);
     }
 
 // FUNCTION DEAD
@@ -266,18 +294,38 @@ public class Unit : MonoBehaviour
     void dead()
     {
         unitAnimator.SetBool("Alive", false);
+        unitAudioSource.clip = deadSound;
+        unitAudioSource.Play();
+        unit.GetComponent<Collider2D>().enabled = false;
         order = (int)UnitOrder.DEAD;
         damage = 0;
+        Destroy(gameObject, deadSound.length);
         Debug.Log("You dead bwahahaha");
     }
 
     public void destroyUnit()
     {
         Debug.Log("dest");
-        Destroy(this.gameObject);
+        dead();
+
     }
 
 // Function Race
+
+    public string getStringRace()
+    {
+        if (getRace() == (int)Unit.UnitRace.ORC)
+            return ("ORC");
+        return ("HUMAN");
+    }
+
+    public string getStringOppositeRace()
+    {
+        if (getRace() == (int)Unit.UnitRace.ORC)
+            return ("HUMAN");
+        return ("ORC");
+    }
+
 
     public int getRace()
     {

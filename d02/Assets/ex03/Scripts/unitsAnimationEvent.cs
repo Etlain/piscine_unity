@@ -21,6 +21,7 @@ public class unitsAnimationEvent : MonoBehaviour
     void launchDead()
     {
         Debug.Log("troy");
+        //unitClass.destroyUnit();
         unitClass.destroyUnit();
     }
     // Update is called once per frame
