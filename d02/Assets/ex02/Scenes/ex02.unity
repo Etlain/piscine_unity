@@ -759,6 +759,11 @@ PrefabInstance:
       propertyPath: units.Array.data[0]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4310111209343153074, guid: 61f2a722b8d9f6a4daf170e57fafe4b1,
+        type: 3}
+      propertyPath: targetIA
+      value: 
+      objectReference: {fileID: 647933299}
     - target: {fileID: 4310111209343153073, guid: 61f2a722b8d9f6a4daf170e57fafe4b1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -909,6 +914,11 @@ PrefabInstance:
       propertyPath: player
       value: IA
       objectReference: {fileID: 0}
+    - target: {fileID: 4310111209343153074, guid: 61f2a722b8d9f6a4daf170e57fafe4b1,
+        type: 3}
+      propertyPath: targetIA
+      value: 
+      objectReference: {fileID: 647933299}
     - target: {fileID: 4310111209343153073, guid: 61f2a722b8d9f6a4daf170e57fafe4b1,
         type: 3}
       propertyPath: m_LocalPosition.x

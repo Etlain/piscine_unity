@@ -7,6 +7,7 @@ public class UnitsManager : MonoBehaviour
     public string     race = "Human"; // Human or Orc
     public string     player = "Human"; // Human or IA
     public List<Unit> units = new List<Unit>();
+    public Transform  targetIA;
 
     private delegate void   delegateAction();
     private delegateAction action;
@@ -47,6 +48,20 @@ public class UnitsManager : MonoBehaviour
 
     void actionIA()
     {
+        /*for (int i = 0; i < units.Count; i++)
+        {
+            if (!units[i])
+                units.Remove(units[i]);
+            else if (units[i].getOrder() == (int)Unit.UnitOrder.STAY)
+            {
+                Debug.Log(targetIA.position.x);
+                //Debug.Log(targetIA.position.y);
+                //Vector2 t = new Vector2(0,0);
+                //units[i].setClickTarget(t);
+                units[i].setClickTargetWhithoutCamera(targetIA.position);
+                units[i].setOrder((int)Unit.UnitOrder.MOVE);
+            }
+        }*/
         //Debug.Log("test delegate");
     }
 

@@ -26,7 +26,7 @@ public class Buildings : MonoBehaviour
         life -= damageTaken;
         if (life <= 0)
             dead();
-        Debug.Log("Ho no, my house !");
+        //Debug.Log("Ho no, my house !");
     }
 
     void dead()
@@ -38,7 +38,7 @@ public class Buildings : MonoBehaviour
         buildingsAudioSource.Play();
         this.gameObject.GetComponent<Collider2D>().enabled = false;
         Destroy(this.gameObject, buildingsAudioSource.clip.length);
-        Debug.Log("You dead bwahahaha");
+        //Debug.Log("You dead bwahahaha");
     }
 
     public float getLife()

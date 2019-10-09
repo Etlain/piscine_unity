@@ -78,7 +78,7 @@ public class Unit : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        //Debug.Log("test :"+other.tag);
+        Debug.Log("test :"+other.tag);
         //setOrder((int)UnitOrder.STAY);
         if (other && isEnemyRace(other.tag))
         {
@@ -196,7 +196,7 @@ public class Unit : MonoBehaviour
         order = cmd;
     }
 
-    int getOrder()
+    public int getOrder()
     {
         return ((int)order);
     }
@@ -210,6 +210,14 @@ public class Unit : MonoBehaviour
         clickTarget = target;
         clickTarget.z = -Camera.main.transform.position.z;
         clickTarget = Camera.main.ScreenToWorldPoint(clickTarget);
+        isClickTarget = true;
+    }
+
+    public void setClickTargetWhithoutCamera(Vector3 target)
+    {
+        clickTarget = target;
+        //clickTarget.z = -Camera.main.transform.position.z;
+        //clickTarget = Camera.main.ScreenToWorldPoint(clickTarget);
         isClickTarget = true;
     }
 
@@ -300,7 +308,7 @@ public class Unit : MonoBehaviour
         order = (int)UnitOrder.DEAD;
         damage = 0;
         Destroy(gameObject, deadSound.length);
-        Debug.Log("You dead bwahahaha");
+        //Debug.Log("You dead bwahahaha");
     }
 
     public void destroyUnit()
