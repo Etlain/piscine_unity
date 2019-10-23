@@ -58,4 +58,10 @@ public class ManagerUI : MonoBehaviour
             return (true);
         return (false);
     }
+
+    public void playSpeed(float speed)
+    {
+        gameManagerScript.changeSpeed(speed);
+    }
+
 }
