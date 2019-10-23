@@ -3,51 +3,75 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class itemUI : MonoBehaviour
+public class ItemUI : MonoBehaviour
 {
 
 
     // user collider for detect empty case and drag item
     // create new script and exit gameObject towerSprite in editor unity for the script
 
-    public GameObject tower;
+    public ManagerUI        managerUIScript;
+    public GameObject       towerPrefab;
+    public GameObject       towerSpriteSelected;
 
-    private GameObject  towerSprite;
+    //private towerScript     towerPrefabScript;
+    private SpriteRenderer  towerSpriteRendererSelected;
+    //private int     towerSpriteSelectedZ;
     private Vector3 screenPoint;
     private Vector3 offset;
     private LayerMask mask;
+    private Vector2   towerPosition;
+    private int         energy;
 
     bool isDrag = false;
+    bool isEmpty = false;
+    //bool isUI = false;
     // Start is called before the first frame update
     void Start()
     {
-        // create simple game object sprite ui when drag
-        towerSprite = new GameObject();
-        towerSprite.AddComponent(typeof(SpriteRenderer));
-        towerSprite.GetComponent<SpriteRenderer>().sprite = gameObject.GetComponent<SpriteRenderer>().sprite;
-        towerSprite.transform.localScale *= 2f;
-        towerSprite.GetComponent<SpriteRenderer>().enabled = false;
-        // initialize mask layer for found good position to drag tower
-        mask = LayerMask.GetMask("Default");
-        towerSprite.layer = LayerMask.NameToLayer("Default");
-        //Debug.Log("start :"+mask);
+        towerSpriteRendererSelected = towerSpriteSelected.GetComponent<SpriteRenderer>();
+        //towerPrefabScript = towerPrefab.GetComponent<towerScript>();
+        energy = towerPrefab.GetComponent<towerScript>().energy;
+        //towerSpriteSelectedZ = towerSpriteSelected.gameObject.transform.position.z;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log("is drag : "+isDrag);
+        //Debug.Log("is drag : "+isEmpty);
         if (isDrag)
         {
 
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, mask);
-            Debug.DrawRay(Input.mousePosition, Vector2.zero * 100f, Color.blue);
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, LayerMask.GetMask("Default"));
+            //Debug.DrawRay(Input.mousePosition, Vector2.zero * 100f, Color.blue);
             //RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, mask);
 
             // If it hits something...
             if (hit.collider != null)
             {
-                Debug.Log("test :"+hit.collider.tag);
+                //Debug.Log("test :"+hit.collider.tag);
+                if (hit.collider.tag == "empty")
+                {
+                    towerSpriteRendererSelected.color = Color.green;
+                    isEmpty = true;
+                }
+                else
+                {
+                    towerSpriteRendererSelected.color = Color.red;
+                    isEmpty = false;
+                }
+                towerPosition = hit.collider.gameObject.transform.position;
+            }
+            else
+            {
+                //Debug.Log("hi");
+                isEmpty = false;
+                hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, LayerMask.GetMask("UI"));
+                if (hit.collider != null)
+                {
+                    towerPosition = getPosition();
+                    towerSpriteRendererSelected.color = Color.red;
+                }
             }
         }
     }
@@ -55,35 +79,36 @@ public class itemUI : MonoBehaviour
     void OnMouseDown()
     {
         isDrag = true;
-        Debug.Log("A");
+        //Debug.Log("A");
 
         screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
         offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
-        towerSprite.transform.position = getPosition();
-        towerSprite.GetComponent<SpriteRenderer>().enabled = true;
+        towerSpriteSelected.transform.position = getPosition();
+        towerSpriteSelected.GetComponent<SpriteRenderer>().enabled = true;
     }
 
     void OnMouseDrag()
     {
-        towerSprite.transform.position = getPosition();
+        towerSpriteSelected.transform.position = towerPosition;
+        //towerSpriteSelected.transform.position = getPosition();
     }
 
     void OnMouseUp()
     {
         //towerSprite.transform.position = curPosition;
 
-        /*RaycastHit hit; Use this in update
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (isEmpty)
+        {
+            //Debug.Log("create");
+            //towerPrefabScript.
+            managerUIScript.downEnergy(energy);
+            Instantiate(towerPrefab, towerPosition, Quaternion.identity);
+            isEmpty = false;
+            //Instantiate(towerPrefab, getPosition(), Quaternion.identity);
+        }
 
-        if (Physics.Raycast(ray, out hit)) {
-            Transform objectHit = hit.transform;
-            Debug.Log("log");
-            // Do something with the object that was hit by the raycast.
-        }*/
-        Instantiate(tower, getPosition(), Quaternion.identity);
-
-        towerSprite.transform.position = gameObject.transform.position;
-        towerSprite.GetComponent<SpriteRenderer>().enabled = false;
+        //towerSpriteSelected.transform.position = gameObject.transform.position;
+        towerSpriteSelected.GetComponent<SpriteRenderer>().enabled = false;
         isDrag = false;
     }
 
@@ -92,6 +117,8 @@ public class itemUI : MonoBehaviour
         Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
 
         Vector3 curPosition   = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
+
+        //curPosition.z = -50;
         return (curPosition);
     }
 }

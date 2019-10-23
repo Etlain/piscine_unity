@@ -19,6 +19,9 @@ public class gameManager : MonoBehaviour {
 	private float tmpTimeScale = 1;
 	[HideInInspector]public int score = 0;
 
+	public delegate				void lifeEvent();
+	public event lifeEvent		loseLifeEvent;
+
 	public static gameManager gm;
 
 	//Singleton basique  : Voir unity design patterns sur google.
@@ -51,6 +54,7 @@ public class gameManager : MonoBehaviour {
 	//Le joueur perd de la vie
 	public void damagePlayer(int damage) {
 		playerHp -= damage;
+		loseLifeEvent();
 		if (playerHp <= 0)
 			gameOver();
 		else
